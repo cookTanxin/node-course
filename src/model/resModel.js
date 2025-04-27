@@ -3,7 +3,7 @@ class BaseModel {
         if(typeof data === 'string') {
             this.data = null;
             data = null
-            message = null
+            // message = null
         }
         if(data) {
             this.data = data
@@ -28,7 +28,7 @@ class ErrorModel extends BaseModel {
     }
 }
 
-module.extends = {
+module.exports = {
     SuccessModel,
     ErrorModel
 }
