@@ -35,6 +35,7 @@ const handleBlogRouter = (req,res) => {
     }
     // 删除
     if(method === "POST" && req.urlPath === '/api/blog/delete') {
+        console.log('删除接口')
        const id = req.query.id;
        const bodyData = req.body
         const deleteData = deleteBlogData(id, bodyData)

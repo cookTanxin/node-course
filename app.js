@@ -10,15 +10,17 @@ const serverHandle = (req,res) => {
   // 请求路由
   req.urlPath = req.url.split('?')[0];
   // 设置请求头信息
-  res.setHeader('content-type','application/json');
+  res.setHeader('Content-type','application/json');
   parseBodyData(req).then((bodyData) => {
-    req.body = JSON.parse(bodyData);
-    console.log(req.body.title)
+    if(bodyData) {
+      req.body = JSON.parse(bodyData);
+    }
     // 博客数据
     const blogData = handleBlogRouter(req,res);
     // 用户数据
     const userData = handleUserRouter(req,res);
     if(blogData) {
+      console.log('博客处理')
       return res.end(JSON.stringify({...blogData,env: process.env.NODE_ENV}));
     }
     if(userData) {
@@ -28,6 +30,8 @@ const serverHandle = (req,res) => {
     res.writeHead(404,{'Content-Type': 'text/plain'});
     res.write('404 not found')
     res.end();
+  }).catch((err) => {
+    console.log('请求失败*****')
   })
 
 }
