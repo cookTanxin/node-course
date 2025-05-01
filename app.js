@@ -11,12 +11,12 @@ const serverHandle = (req,res) => {
   req.urlPath = req.url.split('?')[0];
   // 设置请求头信息
   res.setHeader('Content-type','application/json');
-  parseBodyData(req).then((bodyData) => {
+  parseBodyData(req).then(async (bodyData) => {
     if(bodyData) {
       req.body = JSON.parse(bodyData);
     }
     // 博客数据
-    const blogData = handleBlogRouter(req,res);
+    const blogData = await handleBlogRouter(req,res)    
     // 用户数据
     const userData = handleUserRouter(req,res);
     if(blogData) {
@@ -31,7 +31,9 @@ const serverHandle = (req,res) => {
     res.write('404 not found')
     res.end();
   }).catch((err) => {
-    console.log('请求失败*****')
+    res.writeHead(404,{'Content-Type': 'text/plain'});
+    res.write('404 not found')
+    res.end();
   })
 
 }

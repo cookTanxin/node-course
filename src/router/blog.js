@@ -11,8 +11,9 @@ const handleBlogRouter = (req,res) => {
         const keyword = req.query.keyword || ''
         // 作者名称
         const author = req.query.author || ''
-        const listData = getListData(keyword,author)
-        return new SuccessModel(listData,'请求成功')
+        return getListData(keyword,author).then((listData) => {
+            return new SuccessModel(listData,'请求成功')
+        })
     }
     // 博客详情接口
     if(method === "GET" && req.urlPath === '/api/blog/detail') {

@@ -1,10 +1,16 @@
-// 获取列表数据
-const {SuccessModel} = require("../model/resModel");
+// 数据库查询
+const {exec} = require('../db/index')
 const getListData =  (keyword, author) => {
-    return [
-        {id:1,name:'zhangsan',author:'lisi'},
-        {id:2,name:'wangwu',author: 'lisi'}
-    ]
+    // 1. 拼接 sql 语句
+    let sql = `select * from blogs where 1=1 `
+    if(keyword) {
+        sql += `and title like '%${keyword}%' `
+    }
+    if(author) {
+        sql += `and author = '${author}' `
+    }
+    sql += `order by createtime desc;`
+    return exec(sql)
 }
 
 // 获取博客详情数据

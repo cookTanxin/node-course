@@ -16,7 +16,7 @@ const parseBodyData = (req) => {
         })
         req.on('end',() => {
             if(!postData) {
-                return reject('')
+                return reject('请传递参数')
             }
             resolve(postData)
         })
