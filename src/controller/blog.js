@@ -15,11 +15,10 @@ const getListData =  (keyword, author) => {
 
 // 获取博客详情数据
 const getDetailData = (id = '') => {
-    return {
-        title:'博客标题',
-        content:'博客内容',
-        createTime: new Date(),
-    }
+    const sql = `select * from blogs where id = ${id};`
+    return exec(sql).then((rows) => {
+        return rows[0]
+    })
 }
 
 // 创建博客

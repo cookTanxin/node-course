@@ -18,8 +18,10 @@ const handleBlogRouter = (req,res) => {
     // 博客详情接口
     if(method === "GET" && req.urlPath === '/api/blog/detail') {
         const id = req.query.id;
-        const blogDetail = getDetailData(id)
-        return new SuccessModel(blogDetail,'请求成功')
+        return getDetailData(id).then((blogDetail) => {
+            return new SuccessModel(blogDetail,'请求成功')
+        })
+        
     }
     // 新建一篇博客
     if(method === "POST" && req.urlPath === '/api/blog/add') {
