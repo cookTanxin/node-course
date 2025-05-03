@@ -6,12 +6,13 @@ const handleBlogUserRouter = (req,res) => {
     // 用户登录接口
     if(method === "POST" && req.urlPath === '/api/blog/login') {
         const bodyData = req.body;
-        const isLogin = userLogin(bodyData.username, bodyData.password);
-        if(isLogin) {
-            return new SuccessModel('','登录成功');
-        }else {
-            return new ErrorModel('','登录失败');
-        }
+        return userLogin(bodyData.username, bodyData.password).then((isLogin) => {            
+            if(isLogin) {
+                return new SuccessModel('','登录成功');
+            } else {
+                return new ErrorModel('','登录失败');
+            }
+        })
     }
 }
 

@@ -17,14 +17,10 @@ connection.connect((err) => {
 const exec = (sql) => {
     return new Promise((resolve,reject) => {
         connection.query(sql,(err,result) => {
-            if(err) {
+            if(err) {                
                 reject(err)
                 return
-            }
-            console.log('执行 sql 语句', sql);
-            
-            console.log(result);
-            
+            }            
             resolve(result)
         })
     })

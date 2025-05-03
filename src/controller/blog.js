@@ -22,24 +22,25 @@ const getDetailData = (id = '') => {
 }
 
 // 创建博客
-const addBlogData = (bodyData) => {
-    const {title,content,time} = bodyData
-    return {
-        title:title,
-        content:content,
-        time:time,
-    }
+const addBlogData = (bodyData) => {    
+   const {title,content,author} = bodyData
+   const createtime = new Date().getTime()
+   const sql = `insert into blogs (title,content,createtime,author) values('${title}','${content}','${createtime}','${author}')`;
+   return exec(sql).then((insertData) => {
+       return {
+           id: insertData.insertId
+       }
+   })
 }
 
 // 更新博客
 const updateBlogData = (id, bodyData) => {
-    console.log('id',id)
-    const {title,content,time} = bodyData
-    return {
-        title:title,
-        content:content,
-        time:time,
-    }
+    const sql = `update blogs set title = '${bodyData.title}', content = '${bodyData.content}' where id = ${id};`
+    return exec(sql).then((rowsData) => {
+        return {
+            id: id
+        }
+    })
 }
 
 // 删除博客

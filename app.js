@@ -18,9 +18,8 @@ const serverHandle = (req,res) => {
     // 博客数据
     const blogData = await handleBlogRouter(req,res)    
     // 用户数据
-    const userData = handleUserRouter(req,res);
+    const userData = await handleUserRouter(req,res);
     if(blogData) {
-      console.log('博客处理')
       return res.end(JSON.stringify({...blogData,env: process.env.NODE_ENV}));
     }
     if(userData) {

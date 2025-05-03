@@ -24,17 +24,19 @@ const handleBlogRouter = (req,res) => {
         
     }
     // 新建一篇博客
-    if(method === "POST" && req.urlPath === '/api/blog/add') {
-        const bodyData = req.body
-        const addData = addBlogData(bodyData)
-        return new SuccessModel(addData,'请求成功')
+    if(method === "POST" && req.urlPath === '/api/blog/add') {        
+        const bodyData = req.body        
+        return addBlogData(bodyData).then((addData) => {
+            return new SuccessModel(addData,'请求成功')
+        })
     }
     // 更新博客
     if(method === "POST" && req.urlPath === '/api/blog/update') {
        const id = req.query.id;
        const bodyData = req.body
-        const updateData = updateBlogData(id, bodyData)
-        return new SuccessModel(bodyData,'请求成功')
+       return updateBlogData(id, bodyData).then((updateData) => {
+        return new SuccessModel(updateData,'请求成功')
+       })
     }
     // 删除
     if(method === "POST" && req.urlPath === '/api/blog/delete') {
