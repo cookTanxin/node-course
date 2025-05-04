@@ -2,10 +2,7 @@ const querystring = require("querystring");
 const handleBlogRouter = require("./src/router/blog");
 const handleUserRouter = require("./src/router/user");
 const parseBodyData = require("./src/utils/parseBody");
-const { client, getRedis } = require("./src/db/redis");
-getRedis("myname").then((res) => {
-  console.log("res", res);
-});
+const { client } = require("./src/db/redis");
 const serverHandle = (req, res) => {
   const method = req.method;
   const url = req.url;

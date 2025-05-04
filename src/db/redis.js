@@ -20,8 +20,12 @@ const setRedis = (key, val) => {
     if (typeof val === "object") {
       key = JSON.stringify(val);
     }
-    await client.set(key, val);
-    resolve();
+    try {
+      await client.set(key, val);
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 
