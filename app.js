@@ -2,6 +2,10 @@ const querystring = require("querystring");
 const handleBlogRouter = require("./src/router/blog");
 const handleUserRouter = require("./src/router/user");
 const parseBodyData = require("./src/utils/parseBody");
+const { client, getRedis } = require("./src/db/redis");
+getRedis("myname").then((res) => {
+  console.log("res", res);
+});
 const serverHandle = (req, res) => {
   const method = req.method;
   const url = req.url;
@@ -9,8 +13,6 @@ const serverHandle = (req, res) => {
   req.query = querystring.parse(url.split("?")[1]);
   // 请求路由
   req.urlPath = req.url.split("?")[0];
-  console.log(req.urlPath);
-
   // 设置请求头信息
   res.setHeader("Content-type", "application/json");
   parseBodyData(req)
